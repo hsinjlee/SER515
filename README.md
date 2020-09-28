@@ -1,4 +1,4 @@
-# SER515
+# SER515 - Zhang's Zealots group project
 
 #### This project uses Unity 2019.4.11f1 LTS version.
 
