@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,12 +19,18 @@ namespace Mapbox.Examples
 
 		void OnMouseDrag()
 		{
+			Console.WriteLine("hello");
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			float enter = 0.0f;
 			if (_yPlane.Raycast(ray, out enter))
 			{
 				MoveTarget.position = ray.GetPoint(enter);
 			}
+		}
+
+		void OnMouseUP()
+        {
+			
 		}
 	}
 }
