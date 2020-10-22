@@ -6,13 +6,18 @@ public class SceneChanger : MonoBehaviour
 {
     public void Student()
     {
-        SceneManager.LoadScene("MapDemo");
+        SceneManager.LoadScene("LoginPage");
     }
     public void Faculty()
     {
-        SceneManager.LoadScene("MapDemo");
+        SceneManager.LoadScene("LoginPage");
     }
     public void Visitor()
+    {
+        SceneManager.LoadScene("MapDemo");
+    }
+
+    public void SubmitBtn()
     {
         SceneManager.LoadScene("MapDemo");
     }
