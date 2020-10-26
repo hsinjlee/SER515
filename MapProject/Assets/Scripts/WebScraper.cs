@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using System.IO;
@@ -15,6 +16,9 @@ using OpenQA.Selenium.Remote;
 
 public class WebScraper : MonoBehaviour
 {
+    public InputField username;
+    public InputField password;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,10 +45,10 @@ public class WebScraper : MonoBehaviour
         //driver1.Navigate().GoToUrl("https://weblogin.asu.edu/cas/login?service=https%3A%2F%2Fweblogin.asu.edu%2Fcgi-bin%2Fcas-login%3Fcallapp%3Dhttps%253A%252F%252Fwebapp4.asu.edu%252Fmyasu%252F%253Finit%253Dfalse"); //launch URL
 
         IWebElement textbox1 = driver.FindElement(By.Id("username"));
-        textbox1.SendKeys("chsu65");
+        textbox1.SendKeys(username.text);
 
         IWebElement textbox2 = driver.FindElement(By.Name("password"));
-        textbox2.SendKeys("F127906052bad748ad111");
+        textbox2.SendKeys(password.text);
 
         IWebElement textbox3 = driver.FindElement(By.Name("submit"));
         textbox3.Submit();
