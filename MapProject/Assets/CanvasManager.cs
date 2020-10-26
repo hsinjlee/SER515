@@ -19,6 +19,6 @@ public class CanvasManager : MonoBehaviour
 
     public void SearchButton()
     {
-        Console.WriteLine("Search");
+        Debug.Log("search");
     }
 }

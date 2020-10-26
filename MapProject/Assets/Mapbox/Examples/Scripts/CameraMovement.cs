@@ -3,8 +3,9 @@ namespace Mapbox.Examples
 	using UnityEngine;
 	using UnityEngine.EventSystems;
 	using Mapbox.Unity.Map;
+    using System;
 
-	public class CameraMovement : MonoBehaviour
+    public class CameraMovement : MonoBehaviour
 	{
 		[SerializeField]
 		AbstractMap _map;
@@ -22,7 +23,7 @@ namespace Mapbox.Examples
 		Vector3 _origin;
 		Vector3 _delta;
 		bool _shouldDrag;
-		public static bool isPinMoved = false;
+		public bool dragFlag = false;
 		void HandleTouch()
 		{
 			float zoomFactor = 0.0f;
@@ -134,15 +135,22 @@ namespace Mapbox.Examples
 
 		void LateUpdate()
 		{
-
-			if (Input.touchSupported && Input.touchCount > 0)
+			if (dragFlag == false)
 			{
-				HandleTouch();
-			}
-			else
-			{
-				HandleMouseAndKeyBoard();
+				if (Input.touchSupported && Input.touchCount > 0)
+				{
+					HandleTouch();
+				}
+				else
+				{
+					HandleMouseAndKeyBoard();
+				}
 			}
 		}
+
+		void setDrag(bool type)
+        {
+			dragFlag = type;
+        }
 	}
 }
