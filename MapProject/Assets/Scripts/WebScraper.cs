@@ -35,9 +35,9 @@ public class WebScraper : MonoBehaviour
          //using the Appium_dot_net_driver (version 1.3.0.1) 
         
         //Initialise appium which throwing some error saying to add <IWebelement>
-        AppiumDriver<AppiumWebElement> driver1;
+        //AppiumDriver<AppiumWebElement> driver1;
         //VVVV this line has problem
-        driver1 = new IOSDriver<IWebElement>(new Uri("http://127.0.0.1:4723/wd/hub"), Usercapabilities);
+        //driver1 = new IOSDriver<IWebElement>(new Uri("http://127.0.0.1:4723/wd/hub"), Usercapabilities);
         //driver1.Navigate().GoToUrl("https://weblogin.asu.edu/cas/login?service=https%3A%2F%2Fweblogin.asu.edu%2Fcgi-bin%2Fcas-login%3Fcallapp%3Dhttps%253A%252F%252Fwebapp4.asu.edu%252Fmyasu%252F%253Finit%253Dfalse"); //launch URL
 
         IWebElement textbox1 = driver.FindElement(By.Id("username"));
