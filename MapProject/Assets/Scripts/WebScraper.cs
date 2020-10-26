@@ -25,7 +25,7 @@ public class WebScraper : MonoBehaviour
     }
 
     public void Scraper() {
-        IWebDriver driver = new ChromeDriver("/Users/Marcushsu/Documents/GitHub/ss/bin/Debug/netcoreapp3.0/");
+        IWebDriver driver = new ChromeDriver(Environment.CurrentDirectory);
         driver.Url = "https://weblogin.asu.edu/cas/login?service=https%3A%2F%2Fweblogin.asu.edu%2Fcgi-bin%2Fcas-login%3Fcallapp%3Dhttps%253A%252F%252Fwebapp4.asu.edu%252Fmyasu%252F%253Finit%253Dfalse";
         
         //DesiredCapabilities Usercapabilities = new DesiredCapabilities();
