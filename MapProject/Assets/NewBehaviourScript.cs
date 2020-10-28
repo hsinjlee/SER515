@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CanvasManager : MonoBehaviour
+public class NewBehaviourScript : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,10 +14,5 @@ public class CanvasManager : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void SearchButton()
-    {
-        Debug.Log("search");
     }
 }
