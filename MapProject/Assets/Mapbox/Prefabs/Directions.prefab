@@ -118,6 +118,8 @@ MonoBehaviour:
   _waypoints:
   - {fileID: 7028735056700449964}
   - {fileID: 7028735057113287648}
+  - {fileID: 0}
+  - {fileID: 7028735057113287648}
   UpdateFrequency: 1
 --- !u!1001 &7028735055428079760
 PrefabInstance:
