@@ -12,10 +12,10 @@ public class CanvasManager : MonoBehaviour
 {
     public GameObject _direction;
     public List<GameObject> createObjects = new List<GameObject>();
-    public DirectionsFactory _directionsFactory = GameObject.Find("Directions").GetComponent<DirectionsFactory>();
     public GameObject wayPoint;
     public GameObject instance;
-    private float minX, maxX, minY, maxY;
+    public int InputNum;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,23 +31,22 @@ public class CanvasManager : MonoBehaviour
     public void SearchButton()
     {
         Vector3 position = new Vector3(0, 0, 0);
-        
-        //[] _wayPoints = new Transform[4];
-        //DirectionsFactory theDirect = _direction.GetComponent<DirectionsFactory>();
 
-        //List<Transform> thelist = theDirect._waypoints.ToList();
-
-        //thelist.Add(Instantiate(wayPoint, position, Quaternion.identity).transform);
-
-        //theDirect._waypoints = thelist.ToArray();
         if (instance == null)
         {
             instance = Instantiate(_direction, position, Quaternion.identity);
         }
-        //GameObject.Find("Directions(Clone)").Destroy();
-        //GameObject.Find("direction waypoint  entity").Destroy();
+        else
+        {
+            DirectionsFactory theDirect = instance.GetComponent<DirectionsFactory>();
+            List<Transform> thelist = theDirect._waypoints.ToList();
+            thelist.Add(Instantiate(wayPoint, position, Quaternion.identity).transform);
 
-        //_directionsFactory.setWaitPoint(_wayPoints);
+            theDirect._waypoints = thelist.ToArray();
+            theDirect.Refresh();
+        }
+        
+        
         String start = GameObject.Find("StartPointText").GetComponent<Text>().text;
         String end = GameObject.Find("EndPointText").GetComponent<Text>().text;
         Debug.Log(start);

@@ -22,11 +22,11 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		Material _material;
 
 		[SerializeField]
-		Transform[] _waypoints;
+		public Transform[] _waypoints;
 		private List<Vector3> _cachedWaypoints;
 
 		[SerializeField]
-		[Range(1,10)]
+		[Range(1, 10)]
 		private float UpdateFrequency = 2;
 
 
@@ -37,7 +37,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		GameObject _directionsGO;
 		private bool _recalculateNext;
 
-        protected virtual void Awake()
+		protected virtual void Awake()
 		{
 			if (_map == null)
 			{
@@ -50,10 +50,9 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 		public void Start()
 		{
-			_cachedWaypoints = new List<Vector3>(_waypoints.Length);
+			_cachedWaypoints = new List<Vector3>();
 			foreach (var item in _waypoints)
 			{
-				item.position = new Vector2(0, 0);
 				_cachedWaypoints.Add(item.position);
 			}
 			_recalculateNext = false;
@@ -65,11 +64,6 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 			StartCoroutine(QueryTimer());
 		}
-		public void setWaitPoint(Transform[] t)
-        {
-			_waypoints = t;
-			Start();
-        }
 
 		protected virtual void OnDestroy()
 		{
@@ -165,6 +159,12 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			mesh.RecalculateNormals();
 			_directionsGO.AddComponent<MeshRenderer>().material = _material;
 			return _directionsGO;
+		}
+
+		public void Refresh()
+		{
+			_cachedWaypoints.Add(_waypoints.Last().position);
+			Query();
 		}
 	}
 
