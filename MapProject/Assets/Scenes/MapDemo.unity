@@ -566,10 +566,10 @@ MonoBehaviour:
   _direction: {fileID: 7028735055644848817, guid: 266f3c60a0bbd774bb0b549cbe0290b9,
     type: 3}
   createObjects: []
-  _directionsFactory: {fileID: 0}
   wayPoint: {fileID: 6950219558603430919, guid: c4e693be3f84a534598fec7a55c480bb,
     type: 3}
   instance: {fileID: 0}
+  InputNum: 0
 --- !u!1 &1004500932
 GameObject:
   m_ObjectHideFlags: 0
