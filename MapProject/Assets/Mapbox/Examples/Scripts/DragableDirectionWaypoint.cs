@@ -10,16 +10,14 @@ namespace Mapbox.Examples
 		private Vector3 screenPoint;
 		private Vector3 offset;
 		private Plane _yPlane;
-		public CameraMovement _camera;
+
 		public void Start()
 		{
-			_camera = GameObject.Find("Main Camera").GetComponent<CameraMovement>();
 			_yPlane = new Plane(Vector3.up, Vector3.zero);
 		}
 
 		void OnMouseDrag()
 		{
-			_camera.moveFlag = false;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			float enter = 0.0f;
 			if (_yPlane.Raycast(ray, out enter))
@@ -27,10 +25,5 @@ namespace Mapbox.Examples
 				MoveTarget.position = ray.GetPoint(enter);
 			}
 		}
-
-        private void OnMouseUp()
-        {
-			_camera.moveFlag = true;
-        }
-    }
+	}
 }

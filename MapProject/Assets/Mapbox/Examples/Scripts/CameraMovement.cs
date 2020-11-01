@@ -22,7 +22,7 @@ namespace Mapbox.Examples
 		Vector3 _origin;
 		Vector3 _delta;
 		bool _shouldDrag;
-		public bool moveFlag = true;
+
 		void HandleTouch()
 		{
 			float zoomFactor = 0.0f;
@@ -134,16 +134,14 @@ namespace Mapbox.Examples
 
 		void LateUpdate()
 		{
-			if(moveFlag == true)
-            {
-				if (Input.touchSupported && Input.touchCount > 0)
-				{
-					HandleTouch();
-				}
-				else
-				{
-					HandleMouseAndKeyBoard();
-				}
+
+			if (Input.touchSupported && Input.touchCount > 0)
+			{
+				HandleTouch();
+			}
+			else
+			{
+				HandleMouseAndKeyBoard();
 			}
 		}
 	}
