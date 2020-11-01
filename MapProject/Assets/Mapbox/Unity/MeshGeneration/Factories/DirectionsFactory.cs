@@ -37,7 +37,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		GameObject _directionsGO;
 		private bool _recalculateNext;
 
-		protected virtual void Awake()
+        protected virtual void Awake()
 		{
 			if (_map == null)
 			{
@@ -53,6 +53,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			_cachedWaypoints = new List<Vector3>(_waypoints.Length);
 			foreach (var item in _waypoints)
 			{
+				item.position = new Vector2(0, 0);
 				_cachedWaypoints.Add(item.position);
 			}
 			_recalculateNext = false;
@@ -64,6 +65,11 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 			StartCoroutine(QueryTimer());
 		}
+		public void setWaitPoint(Transform[] t)
+        {
+			_waypoints = t;
+			Start();
+        }
 
 		protected virtual void OnDestroy()
 		{
