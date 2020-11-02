@@ -9,9 +9,6 @@ using System.Text;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Android;
-using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Remote;
 
 public class WebScraper : MonoBehaviour

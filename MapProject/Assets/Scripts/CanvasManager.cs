@@ -45,12 +45,5 @@ public class CanvasManager : MonoBehaviour
             theDirect._waypoints = thelist.ToArray();
             theDirect.Refresh();
         }
-        
-        
-        String start = GameObject.Find("StartPointText").GetComponent<Text>().text;
-        String end = GameObject.Find("EndPointText").GetComponent<Text>().text;
-        Debug.Log(start);
-        Debug.Log(end);
-
     }
 }
