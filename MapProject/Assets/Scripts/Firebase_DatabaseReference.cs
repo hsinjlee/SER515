@@ -7,10 +7,10 @@ using UnityEngine;
 
 public class Firebase_DatabaseReference : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
-        
+        // Get the root reference location of the database.
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
     // Update is called once per frame
