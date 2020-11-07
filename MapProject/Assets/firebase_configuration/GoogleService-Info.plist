@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>727156611990-ekv3s1t5hg288astp8bpkuqjt4hfqv2q.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.727156611990-ekv3s1t5hg288astp8bpkuqjt4hfqv2q</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>727156611990-hgd808v28s8ivtqhj73vsp0r68lfjaus.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAm2WfRXarBpHd9o7OIFz-9lfR6a37Z0tU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>727156611990</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.DefaultCompany.MapProject</string>
+	<key>PROJECT_ID</key>
+	<string>mapproject-fb612</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mapproject-fb612.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:727156611990:ios:5a6cd902818f82d366dbb7</string>
+	<key>DATABASE_URL</key>
+	<string>https://mapproject-fb612.firebaseio.com</string>
+</dict>
+</plist>

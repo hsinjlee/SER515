@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "727156611990",
+    "firebase_url": "https://mapproject-fb612.firebaseio.com",
+    "project_id": "mapproject-fb612",
+    "storage_bucket": "mapproject-fb612.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727156611990:android:9e1d913e63202c5066dbb7",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.MapProject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727156611990-do68957alumbcfgv2d1il6m50aa91vsk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzV88s9w-LqojyLFhpTHcrRDe1lpgeQYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727156611990-do68957alumbcfgv2d1il6m50aa91vsk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "727156611990-ekv3s1t5hg288astp8bpkuqjt4hfqv2q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.DefaultCompany.MapProject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
