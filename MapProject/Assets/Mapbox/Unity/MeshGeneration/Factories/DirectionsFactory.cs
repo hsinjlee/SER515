@@ -29,8 +29,8 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		[Range(1, 10)]
 		private float UpdateFrequency = 2;
 
-
 		public Vector2d[] _waypointsGeo;
+		public List<Vector2d> _arMark;
 		private int _wayCounter = 0;
 		private Directions _directions;
 		private int _counter;
@@ -129,11 +129,13 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 			var meshData = new MeshData();
 			var dat = new List<Vector3>();
+			_arMark.Clear();
 			foreach (var point in response.Routes[0].Geometry)
 			{
+				_arMark.Add(new Vector2d(point.x, point.y));
 				dat.Add(Conversions.GeoToWorldPosition(point.x, point.y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz());
 			}
-
+			
 			var feat = new VectorFeatureUnity();
 			feat.Points.Add(dat);
 
@@ -147,6 +149,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 		GameObject CreateGameObject(MeshData data)
 		{
+			
 			if (_directionsGO != null)
 			{
 				_directionsGO.Destroy();
@@ -169,7 +172,6 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 				var uv = data.UV[i];
 				mesh.SetUVs(i, uv);
 			}
-
 			mesh.RecalculateNormals();
 			_directionsGO.AddComponent<MeshRenderer>().material = _material;
 			return _directionsGO;
