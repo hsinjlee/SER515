@@ -10,7 +10,7 @@ public class Firebase_classSchedules : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("Firebase write data at a reference");
     }
 
     // Update is called once per frame
