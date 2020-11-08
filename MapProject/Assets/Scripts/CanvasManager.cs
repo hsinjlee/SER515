@@ -39,7 +39,7 @@ public class CanvasManager : MonoBehaviour
             }
             List<Vector2d> theList = theDirect._waypointsGeo.ToList();
             theList.Clear();
-            theList.Add(new Vector2d(33.4209125, -111.9331915));
+            theList.Add(new Vector2d(33.4191474, -111.9345634));
             theList.Add(new Vector2d(33.4162891, -111.9379518));
             theDirect._waypointsGeo = theList.ToArray();
             instance = Instantiate(_direction, new Vector3(0, 0, 0), Quaternion.identity);
