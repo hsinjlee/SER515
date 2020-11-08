@@ -31,7 +31,6 @@ public class Firebase_classSchedules : MonoBehaviour
         Firebase_classSchedules classSchedules = new Firebase_classSchedules(className, classLocation);
         string json = JsonUtility.ToJson(classSchedules);
 
-        
     }
     //// Update is called once per frame
     //void Update()
