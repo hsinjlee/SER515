@@ -30,13 +30,14 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		private float UpdateFrequency = 2;
 
 
-
+		public Vector2d[] _waypointsGeo;
+		private int _wayCounter = 0;
 		private Directions _directions;
 		private int _counter;
 
 		GameObject _directionsGO;
 		private bool _recalculateNext;
-
+		public string _routeType = "Walking";
 		protected virtual void Awake()
 		{
 			if (_map == null)
@@ -53,7 +54,10 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			_cachedWaypoints = new List<Vector3>();
 			foreach (var item in _waypoints)
 			{
+				Vector3 c = Conversions.GeoToWorldPosition(_waypointsGeo[_wayCounter].x, _waypointsGeo[_wayCounter].y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz();
+				item.position = c;
 				_cachedWaypoints.Add(item.position);
+				_wayCounter++;
 			}
 			_recalculateNext = false;
 
@@ -61,7 +65,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			{
 				modifier.Initialize();
 			}
-
+			Query();
 			StartCoroutine(QueryTimer());
 		}
 
@@ -75,13 +79,23 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		{
 			var count = _waypoints.Length;
 			var wp = new Vector2d[count];
+
 			for (int i = 0; i < count; i++)
 			{
 				wp[i] = _waypoints[i].GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
 			}
-			var _directionResource = new DirectionResource(wp, RoutingProfile.Driving);
-			_directionResource.Steps = true;
-			_directions.Query(_directionResource, HandleDirectionsResponse);
+			if(_routeType == "Walking")
+            {
+				var _directionResource = new DirectionResource(wp, RoutingProfile.Walking);
+				_directionResource.Steps = true;
+				_directions.Query(_directionResource, HandleDirectionsResponse);
+			}
+			else
+			{
+				var _directionResource = new DirectionResource(wp, RoutingProfile.Driving);
+				_directionResource.Steps = true;
+				_directions.Query(_directionResource, HandleDirectionsResponse);
+			}
 		}
 
 		public IEnumerator QueryTimer()
