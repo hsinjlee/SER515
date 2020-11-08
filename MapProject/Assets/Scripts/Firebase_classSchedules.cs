@@ -33,10 +33,6 @@ public class Firebase_classSchedules : MonoBehaviour
 
     }
 
-    Push();
-    //// Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
+    //Push();
+   
 }
