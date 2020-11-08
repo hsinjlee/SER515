@@ -12,10 +12,27 @@ public class Firebase_classSchedules : MonoBehaviour
     {
         Debug.Log("Firebase write data at a reference");
     }
+    public string classNeme;
+    public string classLocation;
 
-    // Update is called once per frame
-    void Update()
+    public Firebase_classSchedules()
     {
-        
+
     }
+
+    public Firebase_classSchedules(string className, string classLocation)
+    {
+        this.classNeme = className;
+        this.classLocation = classLocation;
+    }
+
+    private void writeWebScrapper(string className, string classLocation)
+    {
+
+    }
+    //// Update is called once per frame
+    //void Update()
+    //{
+        
+    //}
 }
