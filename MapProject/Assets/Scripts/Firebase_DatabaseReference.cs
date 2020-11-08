@@ -12,10 +12,4 @@ public class Firebase_DatabaseReference : MonoBehaviour
         // Get the root reference location of the database.
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
