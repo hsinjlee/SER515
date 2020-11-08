@@ -26,9 +26,12 @@ public class Firebase_classSchedules : MonoBehaviour
         this.classLocation = classLocation;
     }
 
-    private void writeWebScrapper(string className, string classLocation)
+    private void writeClassSchedules(string locationID, string className, string classLocation)
     {
+        Firebase_classSchedules classSchedules = new Firebase_classSchedules(className, classLocation);
+        string json = JsonUtility.ToJson(classSchedules);
 
+        
     }
     //// Update is called once per frame
     //void Update()
