@@ -14,7 +14,8 @@ public class SceneChanger : MonoBehaviour
     }
     public void Visitor()
     {
-        SceneManager.LoadScene("MapDemo");
+        new SpawnObject();
+        SceneManager.LoadScene("ARNavigation");
     }
 
     public void SubmitBtn()

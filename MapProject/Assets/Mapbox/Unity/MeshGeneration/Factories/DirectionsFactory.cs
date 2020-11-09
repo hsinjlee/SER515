@@ -29,14 +29,15 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		[Range(1, 10)]
 		private float UpdateFrequency = 2;
 
-
-
+		public Vector2d[] _waypointsGeo;
+		public List<Vector2d> _arMark;
+		private int _wayCounter = 0;
 		private Directions _directions;
 		private int _counter;
 
 		GameObject _directionsGO;
 		private bool _recalculateNext;
-
+		public string _routeType = "Walking";
 		protected virtual void Awake()
 		{
 			if (_map == null)
@@ -53,7 +54,10 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			_cachedWaypoints = new List<Vector3>();
 			foreach (var item in _waypoints)
 			{
+				Vector3 c = Conversions.GeoToWorldPosition(_waypointsGeo[_wayCounter].x, _waypointsGeo[_wayCounter].y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz();
+				item.position = c;
 				_cachedWaypoints.Add(item.position);
+				_wayCounter++;
 			}
 			_recalculateNext = false;
 
@@ -61,7 +65,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			{
 				modifier.Initialize();
 			}
-
+			Query();
 			StartCoroutine(QueryTimer());
 		}
 
@@ -75,13 +79,23 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		{
 			var count = _waypoints.Length;
 			var wp = new Vector2d[count];
+
 			for (int i = 0; i < count; i++)
 			{
 				wp[i] = _waypoints[i].GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
 			}
-			var _directionResource = new DirectionResource(wp, RoutingProfile.Driving);
-			_directionResource.Steps = true;
-			_directions.Query(_directionResource, HandleDirectionsResponse);
+			if(_routeType == "Walking")
+            {
+				var _directionResource = new DirectionResource(wp, RoutingProfile.Walking);
+				_directionResource.Steps = true;
+				_directions.Query(_directionResource, HandleDirectionsResponse);
+			}
+			else
+			{
+				var _directionResource = new DirectionResource(wp, RoutingProfile.Driving);
+				_directionResource.Steps = true;
+				_directions.Query(_directionResource, HandleDirectionsResponse);
+			}
 		}
 
 		public IEnumerator QueryTimer()
@@ -115,11 +129,13 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 			var meshData = new MeshData();
 			var dat = new List<Vector3>();
+			_arMark.Clear();
 			foreach (var point in response.Routes[0].Geometry)
 			{
+				_arMark.Add(new Vector2d(point.x, point.y));
 				dat.Add(Conversions.GeoToWorldPosition(point.x, point.y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz());
 			}
-
+			
 			var feat = new VectorFeatureUnity();
 			feat.Points.Add(dat);
 
@@ -133,6 +149,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 		GameObject CreateGameObject(MeshData data)
 		{
+			
 			if (_directionsGO != null)
 			{
 				_directionsGO.Destroy();
@@ -155,7 +172,6 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 				var uv = data.UV[i];
 				mesh.SetUVs(i, uv);
 			}
-
 			mesh.RecalculateNormals();
 			_directionsGO.AddComponent<MeshRenderer>().material = _material;
 			return _directionsGO;

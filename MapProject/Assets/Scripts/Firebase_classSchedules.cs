@@ -11,29 +11,39 @@ public class Firebase_classSchedules : MonoBehaviour
     void Start()
     {
         Debug.Log("Firebase write data at a reference");
+        GameObject location = GameObject.Find("Scraper");
+        WebScraper webScraper = location.GetComponent<WebScraper>();
+        //location.GetComponentInChildren<WebScraper>();
     }
-    public string classNeme;
-    public string classLocation;
+    //public List<List<string>> weekSchedule = new List<List<string>>(5);
+    //public Dictionary<string, HashSet<string>> classDetails = new Dictionary<string, HashSet<string>>();
+    //public List<Dictionary<int, List<string>>> tempSchedule = new List<Dictionary<int, List<string>>>(5);
+   
 
-    public Firebase_classSchedules()
-    {
+    //public string className;
+    //public string classLocation;
+    //Firebase_classSchedules schedules = new Firebase_classSchedules();
+    //WebScraper wScript = 
 
-    }
+    //public Firebase_classSchedules()
+    //{
 
-    public Firebase_classSchedules(string className, string classLocation)
-    {
-        this.classNeme = className;
-        this.classLocation = classLocation;
-    }
+    //}
 
-    private void writeClassSchedules(string locationID, string className, string classLocation)
-    {
-        Firebase_classSchedules classSchedules = new Firebase_classSchedules(className, classLocation);
-        string json = JsonUtility.ToJson(classSchedules);
+    //public Firebase_classSchedules(string className, string classLocation)
+    //{
+    //    this.className = className;
+    //    this.classLocation = classLocation;
+    //}
 
-        Debug.Log("End of write data at a reference");
+    //private void writeClassSchedules(string locationID, string className, string classLocation)
+    //{
+    //    Firebase_classSchedules classSchedules = new Firebase_classSchedules(className, classLocation);
+    //    string json = JsonUtility.ToJson(classSchedules);
 
-    }
+    //    Debug.Log("End of write data at a reference");
+
+    //}
 
     //Push();
     

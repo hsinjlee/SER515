@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Mapbox.Directions;
 using Mapbox.Unity.MeshGeneration.Factories;
+using Mapbox.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,23 +28,53 @@ public class CanvasManager : MonoBehaviour
     {
         
     }
-
-    public void SearchButton()
+    private void DrawDirection(String type)
     {
-        Vector3 position = new Vector3(0, 0, 0);
-
         if (instance == null)
         {
-            instance = Instantiate(_direction, position, Quaternion.identity);
+            DirectionsFactory theDirect = _direction.GetComponent<DirectionsFactory>();
+            if(type != "Search")
+            {
+                theDirect._routeType = type;
+            }
+            List<Vector2d> theList = theDirect._waypointsGeo.ToList();
+            theList.Clear();
+            theList.Add(new Vector2d(33.4191474, -111.9345634));
+            theList.Add(new Vector2d(33.4162891, -111.9379518));
+            theDirect._waypointsGeo = theList.ToArray();
+            instance = Instantiate(_direction, new Vector3(0, 0, 0), Quaternion.identity);
         }
         else
         {
             DirectionsFactory theDirect = instance.GetComponent<DirectionsFactory>();
-            List<Transform> thelist = theDirect._waypoints.ToList();
-            thelist.Add(Instantiate(wayPoint, position, Quaternion.identity).transform);
-
-            theDirect._waypoints = thelist.ToArray();
-            theDirect.Refresh();
+            if(theDirect._routeType != type)
+            {
+                instance = null;
+                GameObject.Find("Directions(Clone)").Destroy();
+                GameObject.Find("direction waypoint  entity").Destroy();
+                DrawDirection(type);
+            }
+            else
+            {
+                List<Transform> thelist = theDirect._waypoints.ToList();
+                thelist.Add(Instantiate(wayPoint, new Vector2(0, 0), Quaternion.identity).transform);
+                theDirect._waypoints = thelist.ToArray();
+                theDirect.Refresh();
+            }
         }
+    }
+    public void SearchButton()
+    {
+        DrawDirection("Search");   
+    }
+
+    public void WalkingButton()
+    {
+        DrawDirection("Walking");
+    }
+
+    public void DrivingButton()
+    {
+        DrawDirection("Driving");
     }
 }

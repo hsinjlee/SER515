@@ -18,13 +18,13 @@ public class Firebase_DatabaseReference : MonoBehaviour
           storage.GetReferenceFromUrl("gs://mapproject-fb612.appspot.com");
 
 
-        var new_metadata = new Firebase.Storage.MetadataChange
-        {
-            CustomMetadata = new Dictionary<string, string> {
-                 {"className", "Foundations of Software Engineering"},
-                 {"classLocation", "Poly PICHO 150"}
-            }
-        };
+        //var new_metadata = new Firebase.Storage.MetadataChange
+        //{
+        //    CustomMetadata = new Dictionary<string, string> {
+        //         {"className", "Foundations of Software Engineering"},
+        //         {"classLocation", "Poly PICHO 150"}
+        //    }
+        //};
 
         // UpdateMetadataAsync
 
@@ -41,4 +41,6 @@ public class Firebase_DatabaseReference : MonoBehaviour
         // Get the root reference location of the database.
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
     }
+
+
 }
