@@ -16,7 +16,7 @@ public class CanvasManager : MonoBehaviour
     public GameObject wayPoint;
     public GameObject instance;
     public int InputNum;
-
+    
     // Start is called before the first frame update
     void Start()
     {

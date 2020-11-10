@@ -182,6 +182,12 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			_cachedWaypoints.Add(_waypoints.Last().position);
 			Query();
 		}
+
+		public Vector2d TransferName(Transform transform)
+        {
+			var v = transform.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
+			return v;
+        }
 	}
 
 }

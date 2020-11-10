@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7028735056700449964}
   m_Layer: 0
   m_Name: Waypoint1
-  m_TagString: Untagged
+  m_TagString: pinpoint1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,6 +119,9 @@ MonoBehaviour:
   - {fileID: 7028735056700449964}
   - {fileID: 7028735057113287648}
   UpdateFrequency: 1
+  _waypointsGeo: []
+  _arMark: []
+  _routeType: Walking
 --- !u!1001 &7028735055428079760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126,6 +129,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7028735056700449964}
     m_Modifications:
+    - target: {fileID: 1385809367662236, guid: 5bcb8afe019d04efc83e86f56b198ce0, type: 3}
+      propertyPath: m_Name
+      value: pinpoint1
+      objectReference: {fileID: 0}
     - target: {fileID: 4597394300452054, guid: 5bcb8afe019d04efc83e86f56b198ce0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -195,6 +202,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7028735057113287648}
     m_Modifications:
+    - target: {fileID: 1385809367662236, guid: 5bcb8afe019d04efc83e86f56b198ce0, type: 3}
+      propertyPath: m_Name
+      value: pinpoint2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385809367662236, guid: 5bcb8afe019d04efc83e86f56b198ce0, type: 3}
+      propertyPath: m_TagString
+      value: pinpoint2
+      objectReference: {fileID: 0}
     - target: {fileID: 4597394300452054, guid: 5bcb8afe019d04efc83e86f56b198ce0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
