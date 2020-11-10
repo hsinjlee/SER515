@@ -1972,7 +1972,7 @@ GameObject:
   - component: {fileID: 1506891923}
   - component: {fileID: 1506891922}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: EndPoint
   m_TagString: Input
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2410,7 +2410,7 @@ GameObject:
   - component: {fileID: 1758384386}
   - component: {fileID: 1758384385}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: StartPoint
   m_TagString: Input
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
