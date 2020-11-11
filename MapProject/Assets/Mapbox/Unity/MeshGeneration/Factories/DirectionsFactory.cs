@@ -10,8 +10,9 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 	using Mapbox.Utils;
 	using Mapbox.Unity.Utilities;
 	using System.Collections;
+    using System;
 
-	public class DirectionsFactory : MonoBehaviour
+    public class DirectionsFactory : MonoBehaviour
 	{
 		[SerializeField]
 		AbstractMap _map;
@@ -35,6 +36,8 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		private Directions _directions;
 		private int _counter;
 
+		public Vector3 _userPosition;
+		public Boolean userOrNot = false;
 		GameObject _directionsGO;
 		private bool _recalculateNext;
 		public string _routeType = "Walking";
@@ -51,12 +54,21 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 		public void Start()
 		{
+			Debug.Log(_waypoints.Length);
 			_cachedWaypoints = new List<Vector3>();
 			foreach (var item in _waypoints)
 			{
-				Vector3 c = Conversions.GeoToWorldPosition(_waypointsGeo[_wayCounter].x, _waypointsGeo[_wayCounter].y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz();
-				item.position = c;
-				_cachedWaypoints.Add(item.position);
+				if(userOrNot && _wayCounter == 0)
+                {
+					item.position = _userPosition;
+					_cachedWaypoints.Add(item.position);
+                }
+                else
+                {
+					Vector3 c = Conversions.GeoToWorldPosition(_waypointsGeo[_wayCounter].x, _waypointsGeo[_wayCounter].y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz();
+					item.position = c;
+					_cachedWaypoints.Add(item.position);
+				}
 				_wayCounter++;
 			}
 			_recalculateNext = false;

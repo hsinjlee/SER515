@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7028735057113287648}
   m_Layer: 0
   m_Name: Waypoint2
-  m_TagString: Untagged
+  m_TagString: pinpoint2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,8 +119,13 @@ MonoBehaviour:
   - {fileID: 7028735056700449964}
   - {fileID: 7028735057113287648}
   UpdateFrequency: 1
-  _waypointsGeo: []
+  _waypointsGeo:
+  - x: 33.4191474
+    y: -111.9345634
+  - x: 33.4162891
+    y: -111.9379518
   _arMark: []
+  userOrNot: 0
   _routeType: Walking
 --- !u!1001 &7028735055428079760
 PrefabInstance:

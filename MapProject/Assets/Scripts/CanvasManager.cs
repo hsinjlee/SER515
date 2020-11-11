@@ -16,7 +16,9 @@ public class CanvasManager : MonoBehaviour
     public GameObject wayPoint;
     public GameObject instance;
     public int InputNum;
-    
+    public GameObject _user;
+    public InputField StartPoint;
+    public InputField EndPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,16 +32,28 @@ public class CanvasManager : MonoBehaviour
     }
     private void DrawDirection(String type)
     {
+        string startBuilding = StartPoint.text;
         if (instance == null)
         {
             DirectionsFactory theDirect = _direction.GetComponent<DirectionsFactory>();
-            if(type != "Search")
+            if (type != "Search")
             {
-                theDirect._routeType = type;
+               theDirect._routeType = type;
             }
             List<Vector2d> theList = theDirect._waypointsGeo.ToList();
             theList.Clear();
-            theList.Add(new Vector2d(33.4191474, -111.9345634));
+            if(startBuilding != "user")
+            {
+                theDirect.userOrNot = false;
+                theList.Add(new Vector2d(33.4191474, -111.9345634));
+            }
+            else
+            {
+                theList.Add(new Vector2d(0, 0));
+                Vector3 temp = _user.transform.position;
+                theDirect._userPosition = temp;
+                theDirect.userOrNot = true;
+            }    
             theList.Add(new Vector2d(33.4162891, -111.9379518));
             theDirect._waypointsGeo = theList.ToArray();
             instance = Instantiate(_direction, new Vector3(0, 0, 0), Quaternion.identity);
@@ -47,7 +61,7 @@ public class CanvasManager : MonoBehaviour
         else
         {
             DirectionsFactory theDirect = instance.GetComponent<DirectionsFactory>();
-            if(theDirect._routeType != type)
+            if (theDirect._routeType != type)
             {
                 instance = null;
                 GameObject.Find("Directions(Clone)").Destroy();

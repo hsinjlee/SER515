@@ -48,17 +48,21 @@ namespace Mapbox.Examples
         private void OnMouseUp()
         {
 			_camera.moveFlag = true;
-			GameObject g = GameObject.FindGameObjectWithTag(_waypointType);
-            DirectionsFactory theDirect = GameObject.Find("Directions(Clone)").GetComponent<DirectionsFactory>();
-			Vector2d v = theDirect.TransferName(g.transform);
-			if (_waypointType == "pinpoint1")
+			GameObject g;
+			if(_waypointType != null)
             {
-				startPoint.text = v.x + " " + v.y;	
+				g = GameObject.FindGameObjectWithTag(_waypointType);
+				DirectionsFactory theDirect = GameObject.Find("Directions(Clone)").GetComponent<DirectionsFactory>();
+				Vector2d v = theDirect.TransferName(g.transform);
+				if (_waypointType == "pinpoint1")
+				{
+					startPoint.text = v.x + " " + v.y;
+				}
+				if (_waypointType == "pinpoint2")
+				{
+					endPoint.text = v.x + " " + v.y;
+				}
 			}
-			if (_waypointType == "pinpoint2")
-            {
-				endPoint.text = v.x + " " + v.y;
-            }
         }
     }
 }
