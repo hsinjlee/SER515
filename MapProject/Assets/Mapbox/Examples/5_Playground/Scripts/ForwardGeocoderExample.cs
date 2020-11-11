@@ -22,18 +22,18 @@ namespace Mapbox.Examples.Playground
 
         void Awake()
         {
-            _searchLocation.OnGeocoderResponse += SearchLocation_OnGeocoderResponse;
+            _searchLocation.OnGeocoderResponse += SearchLocatio_OnGeocoderResponse;
         }
 
         void OnDestroy()
         {
             if (_searchLocation != null)
             {
-                _searchLocation.OnGeocoderResponse -= SearchLocation_OnGeocoderResponse;
+                _searchLocation.OnGeocoderResponse -= SearchLocatio_OnGeocoderResponse;
             }
         }
 
-        void SearchLocation_OnGeocoderResponse(ForwardGeocodeResponse response)
+        void SearchLocatio_OnGeocoderResponse(ForwardGeocodeResponse response)
         {
             _resultsText.text = JsonConvert.SerializeObject(_searchLocation.Response, Formatting.Indented, JsonConverters.Converters);
         }

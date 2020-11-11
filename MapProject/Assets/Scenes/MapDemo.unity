@@ -1116,6 +1116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8439bf2cdedb8364b87a96a891446869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _searchLocation: {fileID: 1758384388}
   _direction: {fileID: 7028735055644848817, guid: 266f3c60a0bbd774bb0b549cbe0290b9,
     type: 3}
   createObjects: []
@@ -2485,6 +2486,7 @@ GameObject:
   - component: {fileID: 1758384387}
   - component: {fileID: 1758384386}
   - component: {fileID: 1758384385}
+  - component: {fileID: 1758384388}
   m_Layer: 5
   m_Name: StartPoint
   m_TagString: Input
@@ -2613,3 +2615,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1758384383}
   m_CullTransparentMesh: 0
+--- !u!114 &1758384388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758384383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bce9ff37f5964623a657f4003af54f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
