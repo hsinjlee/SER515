@@ -13,6 +13,7 @@ using Mapbox.Json.Linq;
 using Boo.Lang.Runtime;
 using Mapbox.Json;
 using OpenQA.Selenium.Html5;
+using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -115,5 +116,9 @@ public class CanvasManager : MonoBehaviour
     public void DrivingButton()
     {
         DrawDirection("Driving");
+    }
+
+    public void showSchedule() {
+        SceneManager.LoadScene("MySchedule");
     }
 }
