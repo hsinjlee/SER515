@@ -54,7 +54,6 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 		public void Start()
 		{
-			Debug.Log(_waypoints.Length);
 			_cachedWaypoints = new List<Vector3>();
 			foreach (var item in _waypoints)
 			{

@@ -8,6 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Net.Http;
+using Mapbox.Json.Linq;
+using Boo.Lang.Runtime;
+using Mapbox.Json;
+using OpenQA.Selenium.Html5;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -19,10 +24,12 @@ public class CanvasManager : MonoBehaviour
     public GameObject _user;
     public InputField StartPoint;
     public InputField EndPoint;
+    private HttpClient client;
+    private string searchApi;
     // Start is called before the first frame update
     void Start()
     {
-        
+       client  = new HttpClient();
     }
 
     // Update is called once per frame
@@ -33,6 +40,7 @@ public class CanvasManager : MonoBehaviour
     private void DrawDirection(String type)
     {
         string startBuilding = StartPoint.text;
+        string endBuilding = EndPoint.text;
         if (instance == null)
         {
             DirectionsFactory theDirect = _direction.GetComponent<DirectionsFactory>();
@@ -44,8 +52,17 @@ public class CanvasManager : MonoBehaviour
             theList.Clear();
             if(startBuilding != "user")
             {
+                string stemp = startBuilding.Replace(" ", "%20");
+                searchApi = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input="+ stemp + "&inputtype=textquery&fields=geometry&key=AIzaSyCCaNjplKt-tq3Nvxq0Hb28Etu7KZUaqE0"; 
+                
+                var startcontent = JObject.Parse(client.GetStringAsync(searchApi).Result);
+                
+                double lat = Double.Parse(startcontent["candidates"][0]["geometry"]["location"]["lat"].ToString());
+                double lng = Double.Parse(startcontent["candidates"][0]["geometry"]["location"]["lng"].ToString());
+                
+                
                 theDirect.userOrNot = false;
-                theList.Add(new Vector2d(33.4191474, -111.9345634));
+                theList.Add(new Vector2d(lat, lng));
             }
             else
             {
@@ -53,8 +70,14 @@ public class CanvasManager : MonoBehaviour
                 Vector3 temp = _user.transform.position;
                 theDirect._userPosition = temp;
                 theDirect.userOrNot = true;
-            }    
-            theList.Add(new Vector2d(33.4162891, -111.9379518));
+            }
+            string etemp = endBuilding.Replace(" ", "%20");
+            searchApi = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + etemp + "&inputtype=textquery&fields=geometry&key=AIzaSyCCaNjplKt-tq3Nvxq0Hb28Etu7KZUaqE0";
+            var endcontent = JObject.Parse(client.GetStringAsync(searchApi).Result);
+
+            double elat = Double.Parse(endcontent["candidates"][0]["geometry"]["location"]["lat"].ToString());
+            double elng = Double.Parse(endcontent["candidates"][0]["geometry"]["location"]["lng"].ToString());
+            theList.Add(new Vector2d(elat, elng));
             theDirect._waypointsGeo = theList.ToArray();
             instance = Instantiate(_direction, new Vector3(0, 0, 0), Quaternion.identity);
         }
@@ -79,6 +102,8 @@ public class CanvasManager : MonoBehaviour
     }
     public void SearchButton()
     {
+        
+        
         DrawDirection("Search");   
     }
 
