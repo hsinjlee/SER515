@@ -3,16 +3,12 @@ using Mapbox.Directions;
 using Mapbox.Unity.MeshGeneration.Factories;
 using Mapbox.Utils;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Net.Http;
 using Mapbox.Json.Linq;
-using Boo.Lang.Runtime;
-using Mapbox.Json;
-using OpenQA.Selenium.Html5;
 using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
