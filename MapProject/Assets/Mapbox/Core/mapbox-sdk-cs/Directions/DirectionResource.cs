@@ -10,6 +10,13 @@ namespace Mapbox.Directions
     using System.Collections.Generic;
     using Mapbox.Utils;
     using Platform;
+	//@test
+	using System;
+	using System.Collections;
+	using System.Collections.Generic;
+	using System.Linq;
+	using UnityEngine;
+	using UnityEngine.UI;
 
     /// <summary> A directions request. </summary>
     public class DirectionResource : Resource

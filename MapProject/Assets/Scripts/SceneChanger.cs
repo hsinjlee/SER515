@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class SceneChanger : MonoBehaviour
 {
     public void Student()
@@ -15,6 +16,11 @@ public class SceneChanger : MonoBehaviour
     public void Visitor()
     {
         SceneManager.LoadScene("MapDemo");
+    }
+
+    public void ARbtn()
+    {
+        SceneManager.LoadScene("ARNavigation");
     }
 
     public void SubmitBtn()

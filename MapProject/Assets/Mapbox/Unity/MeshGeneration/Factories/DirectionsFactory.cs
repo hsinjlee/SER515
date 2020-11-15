@@ -10,9 +10,8 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 	using Mapbox.Utils;
 	using Mapbox.Unity.Utilities;
 	using System.Collections;
-    using System;
 
-    public class DirectionsFactory : MonoBehaviour
+	public class DirectionsFactory : MonoBehaviour
 	{
 		[SerializeField]
 		AbstractMap _map;
@@ -24,7 +23,9 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 		[SerializeField]
 		public Transform[] _waypoints;
-		private List<Vector3> _cachedWaypoints;
+
+		public List<Vector3> _cachedWaypoints;
+		public List<Vector3> _testdata;
 
 		[SerializeField]
 		[Range(1, 10)]
@@ -36,8 +37,6 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		private Directions _directions;
 		private int _counter;
 
-		public Vector3 _userPosition;
-		public Boolean userOrNot = false;
 		GameObject _directionsGO;
 		private bool _recalculateNext;
 		public string _routeType = "Walking";
@@ -54,20 +53,14 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 		public void Start()
 		{
+			_testdata = new List<Vector3>();
 			_cachedWaypoints = new List<Vector3>();
 			foreach (var item in _waypoints)
 			{
-				if(userOrNot && _wayCounter == 0)
-                {
-					item.position = _userPosition;
-					_cachedWaypoints.Add(item.position);
-                }
-                else
-                {
-					Vector3 c = Conversions.GeoToWorldPosition(_waypointsGeo[_wayCounter].x, _waypointsGeo[_wayCounter].y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz();
-					item.position = c;
-					_cachedWaypoints.Add(item.position);
-				}
+				Vector3 c = Conversions.GeoToWorldPosition(_waypointsGeo[_wayCounter].x, _waypointsGeo[_wayCounter].y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz();
+				item.position = c;
+				Debug.Log(_waypointsGeo[_wayCounter].x + " : " + _waypointsGeo[_wayCounter].y + " x = " + c.x + " y = " + c.y + " z = " + c.z);
+				_cachedWaypoints.Add(item.position);
 				_wayCounter++;
 			}
 			_recalculateNext = false;
@@ -131,13 +124,12 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			}
 		}
 
-		void HandleDirectionsResponse(DirectionsResponse response)
+		public void HandleDirectionsResponse(DirectionsResponse response)
 		{
 			if (response == null || null == response.Routes || response.Routes.Count < 1)
 			{
 				return;
 			}
-
 			var meshData = new MeshData();
 			var dat = new List<Vector3>();
 			_arMark.Clear();
@@ -146,15 +138,18 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 				_arMark.Add(new Vector2d(point.x, point.y));
 				dat.Add(Conversions.GeoToWorldPosition(point.x, point.y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz());
 			}
-			
 			var feat = new VectorFeatureUnity();
 			feat.Points.Add(dat);
-
+			//@test
+			_testdata = dat;
+			Debug.Log("here dat");
+			foreach(Vector3 v in _testdata) {
+				Debug.Log("testdata = " + v.x + " , " + v.y + " , " + v.z);
+			}
 			foreach (MeshModifier mod in MeshModifiers.Where(x => x.Active))
 			{
 				mod.Run(feat, meshData, _map.WorldRelativeScale);
 			}
-
 			CreateGameObject(meshData);
 		}
 
@@ -193,12 +188,6 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			_cachedWaypoints.Add(_waypoints.Last().position);
 			Query();
 		}
-
-		public Vector2d TransferName(Transform transform)
-        {
-			var v = transform.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
-			return v;
-        }
 	}
 
 }
