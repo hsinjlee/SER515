@@ -59,12 +59,15 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			{
 				if(userOrNot && _wayCounter == 0)
                 {
-					item.position = _userPosition;
+					Vector3 b = _userPosition;
+					b.y = -13;
+					item.position = b;
 					_cachedWaypoints.Add(item.position);
                 }
                 else
                 {
 					Vector3 c = Conversions.GeoToWorldPosition(_waypointsGeo[_wayCounter].x, _waypointsGeo[_wayCounter].y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz();
+					c.y = -13;
 					item.position = c;
 					_cachedWaypoints.Add(item.position);
 				}
