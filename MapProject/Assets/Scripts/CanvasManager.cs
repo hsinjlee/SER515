@@ -23,6 +23,7 @@ public class CanvasManager : MonoBehaviour
     public InputField EndPoint;
     private HttpClient client;
     private string searchApi;
+    public static List<Vector3> waypts;
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +78,11 @@ public class CanvasManager : MonoBehaviour
             theList.Add(new Vector2d(elat, elng));
             theDirect._waypointsGeo = theList.ToArray();
             instance = Instantiate(_direction, new Vector3(0, 0, 0), Quaternion.identity);
+            waypts = theDirect._waypointsOnMap.ToList();
+            foreach(Vector3 item in waypts)
+            {
+                Debug.Log("cm1: x = " + item.x + " y = " + item.y + " z= " + item.z);
+            }
         }
         else
         {
@@ -94,6 +100,11 @@ public class CanvasManager : MonoBehaviour
                 thelist.Add(Instantiate(wayPoint, new Vector2(0, 0), Quaternion.identity).transform);
                 theDirect._waypoints = thelist.ToArray();
                 theDirect.Refresh();
+            }
+            waypts = theDirect._waypointsOnMap.ToList();
+            foreach (Vector3 item in waypts)
+            {
+                Debug.Log("cm2: x = " + item.x + " y = " + item.y + " z= " + item.z);
             }
         }
     }

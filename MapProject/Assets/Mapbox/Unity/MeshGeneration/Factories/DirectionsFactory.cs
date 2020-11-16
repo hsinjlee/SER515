@@ -25,6 +25,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		[SerializeField]
 		public Transform[] _waypoints;
 		private List<Vector3> _cachedWaypoints;
+		public List<Vector3> _waypointsOnMap;
 
 		[SerializeField]
 		[Range(1, 10)]
@@ -143,6 +144,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 			var meshData = new MeshData();
 			var dat = new List<Vector3>();
+			_waypointsOnMap = new List<Vector3>();
 			_arMark.Clear();
 			foreach (var point in response.Routes[0].Geometry)
 			{
@@ -152,6 +154,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			
 			var feat = new VectorFeatureUnity();
 			feat.Points.Add(dat);
+			_waypointsOnMap = dat;
 
 			foreach (MeshModifier mod in MeshModifiers.Where(x => x.Active))
 			{
