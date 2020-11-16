@@ -693,7 +693,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1916176753}
+      - m_Target: {fileID: 1845553292}
         m_MethodName: BackToMainPage
         m_Mode: 1
         m_Arguments:
@@ -893,6 +893,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1845553291}
+  - component: {fileID: 1845553292}
   m_Layer: 0
   m_Name: ScheduleManager
   m_TagString: Untagged
@@ -914,6 +915,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1845553292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845553290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819365441deeda0479bff316eb090475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classSchedule: []
+  scrollView: {fileID: 1312360560}
+  scrollContent: {fileID: 1600380179}
+  scrollItemPrefab: {fileID: 3488181424920918003, guid: 3bc0da0d35792574eb8e958b6841aefe,
+    type: 3}
 --- !u!1 &1916176748
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,7 +944,6 @@ GameObject:
   - component: {fileID: 1916176751}
   - component: {fileID: 1916176750}
   - component: {fileID: 1916176749}
-  - component: {fileID: 1916176753}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1018,23 +1035,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1916176753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916176748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 819365441deeda0479bff316eb090475, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  classSchedule: []
-  scrollView: {fileID: 1312360560}
-  scrollContent: {fileID: 1600380179}
-  scrollItemPrefab: {fileID: 3488181424920918003, guid: 3bc0da0d35792574eb8e958b6841aefe,
-    type: 3}
 --- !u!1 &2075388641
 GameObject:
   m_ObjectHideFlags: 0
