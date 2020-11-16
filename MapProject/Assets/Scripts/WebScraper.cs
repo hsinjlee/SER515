@@ -113,8 +113,13 @@ public class WebScraper : MonoBehaviour
             }
         }
         
+        
         driver.Quit();
         Debug.Log("End test on selenium");
         SceneManager.LoadScene("MapDemo");
+    }
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.transform.root);
     }
 }

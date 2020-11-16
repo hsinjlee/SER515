@@ -114,7 +114,8 @@ public class CanvasManager : MonoBehaviour
         DrawDirection("Driving");
     }
 
-    public void showSchedule() {
+    public void ShowSchedule() {
+        GameObject.Find("Panel").SetActive(false);
         SceneManager.LoadScene("MySchedule");
     }
 }
