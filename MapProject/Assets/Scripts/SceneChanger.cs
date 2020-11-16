@@ -17,6 +17,11 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene("MapDemo");
     }
 
+    public void AR()
+    {
+        SceneManager.LoadScene("ARNavigation");
+    }
+
     public void SubmitBtn()
     {
         SceneManager.LoadScene("MapDemo");
