@@ -8,6 +8,8 @@ TagManager:
   - pinpoint1
   - pinpoint2
   - user
+  - ManipulationSystem
+  - Scraper
   layers:
   - Default
   - TransparentFX
