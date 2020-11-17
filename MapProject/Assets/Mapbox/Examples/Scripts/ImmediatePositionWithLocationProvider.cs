@@ -1,7 +1,7 @@
 ﻿namespace Mapbox.Examples
 {
 	using Mapbox.Unity.Location;
-	using Mapbox.Unity.Map;
+	//using Mapbox.Unity.Map;
 	using UnityEngine;
 
 	public class ImmediatePositionWithLocationProvider : MonoBehaviour
