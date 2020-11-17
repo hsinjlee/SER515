@@ -6,8 +6,8 @@ using Mapbox.Unity.MeshGeneration.Factories;
 
 public class Instantiate_Object : MonoBehaviour
 {
-    public GameObject box;
     public GameObject dot;
+    public GameObject marker;
     public List<Vector3> theList;
     // Start is called before the first frame update
     void Start()
@@ -15,11 +15,19 @@ public class Instantiate_Object : MonoBehaviour
         //real-world coordinates
         theList = CanvasManager.waypts;
         if (theList.Count == 0) return;
-        Instantiate(box, new Vector3(theList[0].x, theList[0].y, theList[0].z), Quaternion.identity);
+        Instantiate(marker, new Vector3(theList[0].x, theList[0].y, theList[0].z), Quaternion.identity);
         for (int i = 1; i < theList.Count; i++)
         {
-            Instantiate(box, new Vector3(theList[i].x, theList[i].y, theList[i].z), Quaternion.identity);
-            ConnectTwoPoints(i-1, i);
+            if (i == theList.Count - 1)
+            {
+                Instantiate(marker, new Vector3(theList[i].x, theList[i].y, theList[i].z), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(dot, new Vector3(theList[i].x, theList[i].y, theList[i].z), Quaternion.identity);
+                ConnectTwoPoints(i - 1, i);
+            }
+            
         }
     }
 
