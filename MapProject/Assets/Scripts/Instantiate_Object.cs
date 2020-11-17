@@ -25,9 +25,8 @@ public class Instantiate_Object : MonoBehaviour
             else
             {
                 Instantiate(dot, new Vector3(theList[i].x, theList[i].y, theList[i].z), Quaternion.identity);
-                ConnectTwoPoints(i - 1, i);
             }
-            
+            ConnectTwoPoints(i - 1, i);
         }
     }
 
@@ -43,13 +42,13 @@ public class Instantiate_Object : MonoBehaviour
         {
             if(startX > endX)
             {
-                for(float j = endX + 0.01f ; j < startX ; j+= 0.01f)
+                for(float j = endX + 2f ; j < startX ; j+= 2f)
                 {
                     Instantiate(dot, new Vector3(j, coordinatY, endZ), Quaternion.identity);
                 }
             }else
             {
-                for (float j = startX + 0.01f ; j < endX ; j += 0.01f)
+                for (float j = startX + 2f ; j < endX ; j += 2f)
                 {
                     Instantiate(dot, new Vector3(j, coordinatY, endZ), Quaternion.identity);
                 }
@@ -58,14 +57,14 @@ public class Instantiate_Object : MonoBehaviour
         {
             if (startZ > endZ)
             {
-                for (float j = endZ + 0.01f ; j < startZ; j += 0.01f)
+                for (float j = endZ + 2f ; j < startZ; j += 2f)
                 {
                     Instantiate(dot, new Vector3(startX, coordinatY, j), Quaternion.identity);
                 }
             }
             else
             {
-                for (float j = startZ + 0.01f ; j < endZ; j += 0.01f)
+                for (float j = startZ + 2f ; j < endZ; j += 2f)
                 {
                     Instantiate(dot, new Vector3(startX, coordinatY, j), Quaternion.identity);
                 }
