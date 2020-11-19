@@ -33,7 +33,7 @@ public class ScheduleManager : MonoBehaviour
             Debug.Log("Scraper Not Found.");
         }
         
-        classSchedule = new List<string> { "Picacho Hall", "Aravaipa Auditorium", "Agribusiness Center", "Parking Lot 37" };
+        classSchedule = new List<string> { "Memorial Union", "Hayden Library", "ASU SDFC Field", "ASU ISTB 4" };
        // GenerateSchedule();
         foreach (string s in classSchedule)
         {

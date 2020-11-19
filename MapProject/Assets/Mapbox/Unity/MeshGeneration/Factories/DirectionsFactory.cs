@@ -36,7 +36,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		private int _wayCounter = 0;
 		private Directions _directions;
 		private int _counter;
-
+		public Boolean scheduleOrNot;
 		public Vector3 _userPosition;
 		public Boolean userOrNot = false;
 		GameObject _directionsGO;
@@ -196,7 +196,6 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 		public void Refresh()
 		{
-			_cachedWaypoints.Add(_waypoints.Last().position);
 			Query();
 		}
 
