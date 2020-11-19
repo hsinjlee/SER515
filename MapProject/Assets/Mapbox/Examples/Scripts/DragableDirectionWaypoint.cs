@@ -53,14 +53,17 @@ namespace Mapbox.Examples
             {
 				g = GameObject.FindGameObjectWithTag(_waypointType);
 				DirectionsFactory theDirect = GameObject.Find("Directions(Clone)").GetComponent<DirectionsFactory>();
-				Vector2d v = theDirect.TransferName(g.transform);
-				if (_waypointType == "pinpoint1")
-				{
-					startPoint.text = v.x + " " + v.y;
-				}
-				if (_waypointType == "pinpoint2")
-				{
-					endPoint.text = v.x + " " + v.y;
+                if (!theDirect.scheduleOrNot)
+                {
+					Vector2d v = theDirect.TransferName(g.transform);
+					if (_waypointType == "pinpoint1")
+					{
+						startPoint.text = v.x + " " + v.y;
+					}
+					if (_waypointType == "pinpoint2")
+					{
+						endPoint.text = v.x + " " + v.y;
+					}
 				}
 			}
         }

@@ -24,6 +24,8 @@ public class CanvasManager : MonoBehaviour
     private HttpClient client;
     private string searchApi;
     public static List<Vector3> waypts;
+    public static List<string> classSchedule;
+    private Boolean scheduleOrNot;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,12 +44,20 @@ public class CanvasManager : MonoBehaviour
         if (instance == null)
         {
             DirectionsFactory theDirect = _direction.GetComponent<DirectionsFactory>();
+            theDirect.scheduleOrNot = false;
+            List<Transform> thelist1 = theDirect._waypoints.ToList();
+            while(thelist1.Count > 2)
+            {
+                thelist1.RemoveAt(thelist1.Count - 1);
+            }
+            theDirect._waypoints = thelist1.ToArray();
             if (type != "Search")
             {
                theDirect._routeType = type;
             }
             List<Vector2d> theList = theDirect._waypointsGeo.ToList();
             theList.Clear();
+
             if(startBuilding != "user")
             {
                 string stemp = startBuilding.Replace(" ", "%20");
@@ -92,14 +102,13 @@ public class CanvasManager : MonoBehaviour
                 instance = null;
                 GameObject.Find("Directions(Clone)").Destroy();
                 GameObject.Find("direction waypoint  entity").Destroy();
+
+                GameObject[] g = GameObject.FindGameObjectsWithTag("waypointc");
+                foreach(GameObject gg in g)
+                {
+                    Destroy(gg);
+                }
                 DrawDirection(type);
-            }
-            else
-            {
-                List<Transform> thelist = theDirect._waypoints.ToList();
-                thelist.Add(Instantiate(wayPoint, new Vector2(0, 0), Quaternion.identity).transform);
-                theDirect._waypoints = thelist.ToArray();
-                theDirect.Refresh();
             }
             waypts = theDirect._waypointsOnMap.ToList();
             foreach (Vector3 item in waypts)
@@ -108,25 +117,93 @@ public class CanvasManager : MonoBehaviour
             }
         }
     }
+
+    private void DrawDirectionBySchedule(String type)
+    {
+        if (instance == null)
+        {
+            DirectionsFactory theDirect = _direction.GetComponent<DirectionsFactory>();
+            theDirect.scheduleOrNot = true;
+            theDirect._routeType = type;
+            List<Vector2d> theList = theDirect._waypointsGeo.ToList();
+            theList.Clear();
+            int index = 0;
+            theDirect.userOrNot = false;
+            List<Transform> thelist1 = theDirect._waypoints.ToList();
+            foreach (string item in classSchedule)
+            {
+                string stemp = (item + " AZ").Replace(" ", "%20");
+                searchApi = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + stemp + "&inputtype=textquery&fields=geometry&key=AIzaSyCCaNjplKt-tq3Nvxq0Hb28Etu7KZUaqE0";
+                var startcontent = JObject.Parse(client.GetStringAsync(searchApi).Result);
+                double lat = Double.Parse(startcontent["candidates"][0]["geometry"]["location"]["lat"].ToString());
+                double lng = Double.Parse(startcontent["candidates"][0]["geometry"]["location"]["lng"].ToString());
+                if (index == 0)
+                {
+                    theList.Add(new Vector2d(lat, lng));
+                }
+                else if(index == 1)
+                {
+                    theList.Add(new Vector2d(lat, lng));
+                }
+                else
+                {
+                    thelist1.Add(Instantiate(wayPoint, new Vector2(0, 0), Quaternion.identity).transform);
+                    theList.Add(new Vector2d(lat, lng));
+                    Debug.Log(thelist1.Count());
+                }
+                index++;
+            }
+            theDirect._waypoints = thelist1.ToArray();
+            theDirect._waypointsGeo = theList.ToArray();
+            instance = Instantiate(_direction, new Vector3(0, 0, 0), Quaternion.identity);
+        }
+        else
+        {
+            DirectionsFactory theDirect = instance.GetComponent<DirectionsFactory>();
+            theDirect._routeType = type;
+            theDirect.Refresh();
+        }
+    }
+
     public void SearchButton()
     {
-        
-        
+        scheduleOrNot = false;
         DrawDirection("Search");   
     }
 
     public void WalkingButton()
     {
-        DrawDirection("Walking");
+        if (scheduleOrNot)
+        {
+            DrawDirectionBySchedule("Walking");
+        }
+        else
+        {
+            DrawDirection("Walking");
+        }
     }
 
     public void DrivingButton()
     {
-        DrawDirection("Driving");
+        if (scheduleOrNot)
+        {
+            DrawDirectionBySchedule("Driving");
+        }
+        else
+        {
+            DrawDirection("Driving");
+        }
     }
 
     public void ShowSchedule() {
         GameObject.Find("Panel").SetActive(false);
         SceneManager.LoadScene("MySchedule");
+    }
+
+    public void updateClassScheduled(List<string> s)
+    {
+        scheduleOrNot = true;
+        classSchedule = s;
+        DrawDirectionBySchedule("Walking");
     }
 }
