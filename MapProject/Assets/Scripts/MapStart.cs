@@ -13,18 +13,18 @@ public class MapStart : MonoBehaviour
     public GameObject instance;
     public int InputNum;
     public GameObject canvas;
-    private HttpClient client;
-    private string searchApi;
     // Start is called before the first frame update
     void Start()
     {
-        client = new HttpClient();
         schedule = GameObject.Find("ScheduleManager");
         if (schedule)
         {
             ScheduleManager data = schedule.GetComponent<ScheduleManager>();
             CanvasManager canvasManager = canvas.GetComponent<CanvasManager>();
-            canvasManager.updateClassScheduled(data.classSchedule);
+            if(data.classSchedule.Count != 0)
+            {
+                canvasManager.updateClassScheduled(data.classSchedule);
+            }
         }
     }
 
