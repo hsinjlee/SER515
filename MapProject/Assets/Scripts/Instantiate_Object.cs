@@ -19,7 +19,7 @@ public class Instantiate_Object : MonoBehaviour
         //adjust scale of real-world
         for(int i = 0; i < theList.Count; i++)
         {
-            theList[i] *= 5f;
+            theList[i] *= 3f;
         }
 
         Instantiate(marker, new Vector3(theList[0].x, theList[0].y, theList[0].z), Quaternion.identity);
