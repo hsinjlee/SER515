@@ -6,20 +6,34 @@ using Mapbox.Unity.MeshGeneration.Factories;
 
 public class Instantiate_Object : MonoBehaviour
 {
-    public GameObject box;
     public GameObject dot;
+    public GameObject marker;
     public List<Vector3> theList;
+    float offset = 10f;
     // Start is called before the first frame update
     void Start()
     {
         //real-world coordinates
         theList = CanvasManager.waypts;
         if (theList.Count == 0) return;
-        Instantiate(box, new Vector3(theList[0].x, theList[0].y, theList[0].z), Quaternion.identity);
+        //adjust scale of real-world
+        for(int i = 0; i < theList.Count; i++)
+        {
+            theList[i] *= 3f;
+        }
+
+        Instantiate(marker, new Vector3(theList[0].x, theList[0].y, theList[0].z), Quaternion.identity);
         for (int i = 1; i < theList.Count; i++)
         {
-            Instantiate(box, new Vector3(theList[i].x, theList[i].y, theList[i].z), Quaternion.identity);
-            ConnectTwoPoints(i-1, i);
+            if (i == theList.Count - 1)
+            {
+                Instantiate(marker, new Vector3(theList[i].x, theList[i].y, theList[i].z), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(dot, new Vector3(theList[i].x, theList[i].y, theList[i].z), Quaternion.identity);
+            }
+            ConnectTwoPoints(i - 1, i);
         }
     }
 
@@ -31,43 +45,59 @@ public class Instantiate_Object : MonoBehaviour
         float endX = theList[endIndex].x;
         float endZ = theList[endIndex].z;
         float coordinatY = theList[startIndex].y;
-        if (startX != endX)
+        if (startX != endX && startZ != endZ)
         {
-            if(startX > endX)
+            if (Mathf.Abs(startX - endX) > Mathf.Abs(startZ - endZ))
             {
-                for(float j = endX + 0.01f ; j < startX ; j+= 0.01f)
-                {
-                    Instantiate(dot, new Vector3(j, coordinatY, endZ), Quaternion.identity);
-                }
-            }else
-            {
-                for (float j = startX + 0.01f ; j < endX ; j += 0.01f)
-                {
-                    Instantiate(dot, new Vector3(j, coordinatY, endZ), Quaternion.identity);
-                }
-            }
-        }else
-        {
-            if (startZ > endZ)
-            {
-                for (float j = endZ + 0.01f ; j < startZ; j += 0.01f)
-                {
-                    Instantiate(dot, new Vector3(startX, coordinatY, j), Quaternion.identity);
-                }
+                calculateX(startX, endX, coordinatY, endZ);
             }
             else
             {
-                for (float j = startZ + 0.01f ; j < endZ; j += 0.01f)
-                {
-                    Instantiate(dot, new Vector3(startX, coordinatY, j), Quaternion.identity);
-                }
+                calculateZ(startZ, endZ, coordinatY, startX);
             }
         }
+        else if (startX != endX)
+        {
+            calculateX(startX, endX, coordinatY, endZ);
+        }
+        else
+        {
+            calculateZ(startZ, endZ, coordinatY, startX);
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    void calculateX(float start, float end, float y, float z)
     {
+        if (start > end)
+        {
+            for (float j = end + offset ; j < start; j += offset)
+            {
+                Instantiate(dot, new Vector3(j, y, z), Quaternion.identity);
+            }
+        }
+        else
+        {
+            for (float j = start + offset ; j < end; j += offset)
+            {
+                Instantiate(dot, new Vector3(j, y, z), Quaternion.identity);
+            }
+        }
         
+    }
+    void calculateZ(float start, float end, float y, float x)
+    {
+        if (start > end)
+        {
+            for (float j = end + offset ; j < start; j += offset)
+            {
+                Instantiate(dot, new Vector3(x, y, j), Quaternion.identity);
+            }
+        }
+        else
+        {
+            for (float j = start + offset ; j < end; j += offset)
+            {
+                Instantiate(dot, new Vector3(x, y, j), Quaternion.identity);
+            }
+        }
     }
 }
