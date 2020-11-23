@@ -14,6 +14,7 @@ public class ScheduleManager : MonoBehaviour
 
     private List<List<string>> weekSchedule;
     private Dictionary<string, HashSet<string>> classDetails;
+    private bool updated = false;
 
 
     // Start is called before the first frame update
@@ -33,8 +34,11 @@ public class ScheduleManager : MonoBehaviour
             Debug.Log("Scraper Not Found.");
         }
         
-        classSchedule = new List<string> { "Memorial Union", "Hayden Library", "ASU SDFC Field", "ASU ISTB 4" };
-       // GenerateSchedule();
+       // classSchedule = new List<string> { "Memorial Union", "Hayden Library", "ASU SDFC Field", "ASU ISTB 4" };
+        if (!updated)
+        {
+            GenerateSchedule();
+        }
         foreach (string s in classSchedule)
         {
             Debug.Log(s);
@@ -44,29 +48,29 @@ public class ScheduleManager : MonoBehaviour
     }
 
     public void GenerateSchedule() {
-        DateTime today = DateTime.Today;
-        string weekday = today.ToString().Split(',')[0];
-        //int key;
-        //switch (weekday) {
-        //    case "Monday":
-        //        key = 0;
-        //        break;
-        //    case "Tuesday":
-        //        key = 1;
-        //        break;
-        //    case "Wednesday":
-        //        key = 2;
-        //        break;
-        //    case "Thursday":
-        //        key = 3;
-        //        break;
-        //    case "Friday":
-        //        key = 4;
-        //        break;
-        //    default:
-        //        return;
-        //}
-        List<string> dailyClass = weekSchedule[1];
+        string weekday = DateTime.Today.DayOfWeek.ToString();
+        int key;
+        switch (weekday)
+        {
+            case "Monday":
+                key = 0;
+                break;
+            case "Tuesday":
+                key = 1;
+                break;
+            case "Wednesday":
+                key = 2;
+                break;
+            case "Thursday":
+                key = 3;
+                break;
+            case "Friday":
+                key = 4;
+                break;
+            default:
+                return;
+        }
+        List<string> dailyClass = weekSchedule[key];
         foreach (string course in dailyClass)
         {
             Debug.Log(course);
@@ -74,11 +78,14 @@ public class ScheduleManager : MonoBehaviour
             
             string location = null;
             foreach (string l in details)
-            {
-                Debug.Log(l);
+            {   
                 location = l;
             }
-            classSchedule.Add(location);
+            if(!location.Equals("ASu Sync"))
+            {
+                classSchedule.Add(location);
+            }
+            
         }
 
     }
@@ -95,6 +102,24 @@ public class ScheduleManager : MonoBehaviour
 
     public List<string> getClassSchedule() {
         return classSchedule;
+    }
+
+    public void UpdateButton()
+    {
+        List<string> updatedList = new List<string>();
+        int childCount = scrollContent.transform.childCount;
+        for (int i = 0; i < childCount; i++)
+        {
+            Transform scrollItem = scrollContent.transform.GetChild(i);
+            string newLocation = scrollItem.transform.Find("Text").gameObject.GetComponent<Text>().text;
+            if (newLocation.Length == 0) {
+                newLocation = scrollItem.transform.Find("Placeholder").gameObject.GetComponent<Text>().text;
+            }
+            scrollItem.transform.Find("Placeholder").gameObject.GetComponent<Text>().text = newLocation;
+            updatedList.Add(newLocation);
+        }
+        classSchedule = updatedList;
+        updated = true;
     }
 
     private void Awake()
