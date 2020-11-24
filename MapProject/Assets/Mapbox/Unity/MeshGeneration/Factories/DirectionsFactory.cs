@@ -175,7 +175,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 					}
 					int timet = (int)response.Routes[0].Duration / 60;
 					double times = (int)response.Routes[0].Duration % 60;
-					duration.text = "Duration time: " + timet.ToString() + " min " + times.ToString() + " sec ";
+					duration.text = "time: " + timet.ToString() + " min " + times.ToString() + " sec ";
 				}
                 else
                 {
@@ -186,7 +186,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 					}
 					int timet = (int)response.Routes[1].Duration / 60;
 					double times = (int)response.Routes[1].Duration % 60;
-					duration.text = "Duration time: " + timet.ToString() + " min " + times.ToString() + " sec ";
+					duration.text = "time: " + timet.ToString() + " min " + times.ToString() + " sec ";
 				}
 			}
             else
