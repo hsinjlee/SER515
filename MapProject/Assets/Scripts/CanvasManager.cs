@@ -57,8 +57,7 @@ public class CanvasManager : MonoBehaviour
             }
             List<Vector2d> theList = theDirect._waypointsGeo.ToList();
             theList.Clear();
-
-            if(startBuilding != "user")
+            if(!startBuilding.ToString().Equals("user"))
             {
                 string stemp = startBuilding.Replace(" ", "%20");
                 searchApi = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input="+ stemp + "&inputtype=textquery&fields=geometry&key=AIzaSyCCaNjplKt-tq3Nvxq0Hb28Etu7KZUaqE0"; 
@@ -76,6 +75,7 @@ public class CanvasManager : MonoBehaviour
             {
                 theList.Add(new Vector2d(0, 0));
                 Vector3 temp = _user.transform.position;
+                Debug.Log(temp);
                 theDirect._userPosition = temp;
                 theDirect.userOrNot = true;
             }
@@ -200,10 +200,18 @@ public class CanvasManager : MonoBehaviour
         SceneManager.LoadScene("MySchedule");
     }
 
-    public void updateClassScheduled(List<string> s)
+    public void updateClassScheduled()
     {
+        GameObject schedule = GameObject.Find("ScheduleManager");
+        if (schedule)
+        {
+            ScheduleManager data = schedule.GetComponent<ScheduleManager>();
+            if (data.classSchedule.Count != 0)
+            {
+                classSchedule = data.classSchedule;
+            }
+        }
         scheduleOrNot = true;
-        classSchedule = s;
         DrawDirectionBySchedule("Walking");
     }
 }

@@ -23,7 +23,7 @@ public class MapStart : MonoBehaviour
             CanvasManager canvasManager = canvas.GetComponent<CanvasManager>();
             if(data.classSchedule.Count != 0)
             {
-                canvasManager.updateClassScheduled(data.classSchedule);
+                //canvasManager.updateClassScheduled(data.classSchedule);
             }
         }
     }
