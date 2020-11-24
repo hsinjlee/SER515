@@ -11,6 +11,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 	using Mapbox.Unity.Utilities;
 	using System.Collections;
     using System;
+    using UnityEngine.UI;
 
     public class DirectionsFactory : MonoBehaviour
 	{
@@ -42,6 +43,9 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		GameObject _directionsGO;
 		private bool _recalculateNext;
 		public string _routeType = "Walking";
+		public Text duration;
+		public int routeNum = 0;
+		public Button button2;
 		protected virtual void Awake()
 		{
 			if (_map == null)
@@ -51,6 +55,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			_directions = MapboxAccess.Instance.Directions;
 			_map.OnInitialized += Query;
 			_map.OnUpdated += Query;
+			duration = GameObject.Find("Duration").GetComponent<Text>();
 		}
 
 		public void Start()
@@ -101,13 +106,15 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			}
 			if(_routeType == "Walking")
             {
-				var _directionResource = new DirectionResource(wp, RoutingProfile.Walking);
+				var _directionResource = new DirectionResource(wp, RoutingProfile.Cycling);
+				_directionResource.Alternatives = true;
 				_directionResource.Steps = true;
 				_directions.Query(_directionResource, HandleDirectionsResponse);
 			}
 			else
 			{
 				var _directionResource = new DirectionResource(wp, RoutingProfile.Driving);
+				_directionResource.Alternatives = true;
 				_directionResource.Steps = true;
 				_directions.Query(_directionResource, HandleDirectionsResponse);
 			}
@@ -137,6 +144,17 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 		void HandleDirectionsResponse(DirectionsResponse response)
 		{
+			button2 = GameObject.Find("Route2").GetComponent<Button>();
+			if (response.Routes.Count() == 1)
+            {
+				button2.interactable = false;
+			}
+            else
+            {
+				button2.interactable = true;
+            }
+			
+
 			if (response == null || null == response.Routes || response.Routes.Count < 1)
 			{
 				return;
@@ -146,10 +164,41 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			var dat = new List<Vector3>();
 			_waypointsOnMap = new List<Vector3>();
 			_arMark.Clear();
-			foreach (var point in response.Routes[0].Geometry)
-			{
-				_arMark.Add(new Vector2d(point.x, point.y));
-				dat.Add(Conversions.GeoToWorldPosition(point.x, point.y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz());
+			if(routeNum == 1)
+            {
+				if(response.Routes.Count == 1)
+                {
+					foreach (var point in response.Routes[0].Geometry)
+					{
+						_arMark.Add(new Vector2d(point.x, point.y));
+						dat.Add(Conversions.GeoToWorldPosition(point.x, point.y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz());
+					}
+					int timet = (int)response.Routes[0].Duration / 60;
+					double times = (int)response.Routes[0].Duration % 60;
+					duration.text = "Duration time: " + timet.ToString() + " min " + times.ToString() + " sec ";
+				}
+                else
+                {
+					foreach (var point in response.Routes[1].Geometry)
+					{
+						_arMark.Add(new Vector2d(point.x, point.y));
+						dat.Add(Conversions.GeoToWorldPosition(point.x, point.y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz());
+					}
+					int timet = (int)response.Routes[1].Duration / 60;
+					double times = (int)response.Routes[1].Duration % 60;
+					duration.text = "Duration time: " + timet.ToString() + " min " + times.ToString() + " sec ";
+				}
+			}
+            else
+            {
+				foreach (var point in response.Routes[0].Geometry)
+				{
+					_arMark.Add(new Vector2d(point.x, point.y));
+					dat.Add(Conversions.GeoToWorldPosition(point.x, point.y, _map.CenterMercator, _map.WorldRelativeScale).ToVector3xz());
+				}
+				int timet = (int)response.Routes[0].Duration / 60;
+				double times = (int)response.Routes[0].Duration % 60;
+				duration.text = "Duration time: " + timet.ToString() + " min " + times.ToString() + " sec ";
 			}
 			
 			var feat = new VectorFeatureUnity();

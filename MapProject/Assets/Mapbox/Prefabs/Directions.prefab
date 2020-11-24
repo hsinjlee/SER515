@@ -118,6 +118,7 @@ MonoBehaviour:
   _waypoints:
   - {fileID: 7028735056700449964}
   - {fileID: 7028735057113287648}
+  _waypointsOnMap: []
   UpdateFrequency: 1
   _waypointsGeo:
   - x: 33.4191474
@@ -125,8 +126,12 @@ MonoBehaviour:
   - x: 33.4162891
     y: -111.9379518
   _arMark: []
+  scheduleOrNot: 0
+  _userPosition: {x: 0, y: 0, z: 0}
   userOrNot: 0
   _routeType: Walking
+  duration: {fileID: 6918627882164223516, guid: 26562d475bdc55c4595e4fdbd456cb85,
+    type: 3}
 --- !u!1001 &7028735055428079760
 PrefabInstance:
   m_ObjectHideFlags: 0

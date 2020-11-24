@@ -43,7 +43,7 @@
 		protected override void SetLocation()
 		{
 			_currentLocation.UserHeading = _heading;
-			_currentLocation.LatitudeLongitude = new Vector2d(33.4209125, -111.9331915);
+			_currentLocation.LatitudeLongitude = new Vector2d(33.3071747, -111.6769134);
 			_currentLocation.Accuracy = _accuracy;
 			_currentLocation.Timestamp = UnixTimestampUtils.To(DateTime.UtcNow);
 			_currentLocation.IsLocationUpdated = false;

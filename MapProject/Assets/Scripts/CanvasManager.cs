@@ -24,7 +24,7 @@ public class CanvasManager : MonoBehaviour
     private HttpClient client;
     private string searchApi;
     public static List<Vector3> waypts;
-    public static List<string> classSchedule;
+    public List<string> classSchedule;
     private Boolean scheduleOrNot;
     // Start is called before the first frame update
     void Start()
@@ -75,7 +75,6 @@ public class CanvasManager : MonoBehaviour
             {
                 theList.Add(new Vector2d(0, 0));
                 Vector3 temp = _user.transform.position;
-                Debug.Log(temp);
                 theDirect._userPosition = temp;
                 theDirect.userOrNot = true;
             }
@@ -88,11 +87,6 @@ public class CanvasManager : MonoBehaviour
             theList.Add(new Vector2d(elat, elng));
             theDirect._waypointsGeo = theList.ToArray();
             instance = Instantiate(_direction, new Vector3(0, 0, 0), Quaternion.identity);
-            waypts = theDirect._waypointsOnMap.ToList();
-            foreach(Vector3 item in waypts)
-            {
-                Debug.Log("cm1: x = " + item.x + " y = " + item.y + " z= " + item.z);
-            }
         }
         else
         {
@@ -102,18 +96,12 @@ public class CanvasManager : MonoBehaviour
                 instance = null;
                 GameObject.Find("Directions(Clone)").Destroy();
                 GameObject.Find("direction waypoint  entity").Destroy();
-
                 GameObject[] g = GameObject.FindGameObjectsWithTag("waypointc");
                 foreach(GameObject gg in g)
                 {
                     Destroy(gg);
                 }
                 DrawDirection(type);
-            }
-            waypts = theDirect._waypointsOnMap.ToList();
-            foreach (Vector3 item in waypts)
-            {
-                Debug.Log("cm2: x = " + item.x + " y = " + item.y + " z= " + item.z);
             }
         }
     }
@@ -124,15 +112,22 @@ public class CanvasManager : MonoBehaviour
         {
             DirectionsFactory theDirect = _direction.GetComponent<DirectionsFactory>();
             theDirect.scheduleOrNot = true;
-            theDirect._routeType = type;
+            if (type != "Schedule")
+            {
+                theDirect._routeType = type;
+            }
             List<Vector2d> theList = theDirect._waypointsGeo.ToList();
             theList.Clear();
             int index = 0;
             theDirect.userOrNot = false;
             List<Transform> thelist1 = theDirect._waypoints.ToList();
+            while (thelist1.Count > 2)
+            {
+                thelist1.RemoveAt(thelist1.Count - 1);
+            }
             foreach (string item in classSchedule)
             {
-                string stemp = (item + " AZ").Replace(" ", "%20");
+                string stemp = (item).Replace(" ", "%20");
                 searchApi = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + stemp + "&inputtype=textquery&fields=geometry&key=AIzaSyCCaNjplKt-tq3Nvxq0Hb28Etu7KZUaqE0";
                 var startcontent = JObject.Parse(client.GetStringAsync(searchApi).Result);
                 double lat = Double.Parse(startcontent["candidates"][0]["geometry"]["location"]["lat"].ToString());
@@ -140,6 +135,10 @@ public class CanvasManager : MonoBehaviour
                 if (index == 0)
                 {
                     theList.Add(new Vector2d(lat, lng));
+                    if(classSchedule.Count() == 1)
+                    {
+                        theList.Add(new Vector2d(lat, lng));
+                    }
                 }
                 else if(index == 1)
                 {
@@ -149,7 +148,6 @@ public class CanvasManager : MonoBehaviour
                 {
                     thelist1.Add(Instantiate(wayPoint, new Vector2(0, 0), Quaternion.identity).transform);
                     theList.Add(new Vector2d(lat, lng));
-                    Debug.Log(thelist1.Count());
                 }
                 index++;
             }
@@ -160,8 +158,18 @@ public class CanvasManager : MonoBehaviour
         else
         {
             DirectionsFactory theDirect = instance.GetComponent<DirectionsFactory>();
-            theDirect._routeType = type;
-            theDirect.Refresh();
+            if (theDirect._routeType != type)
+            {
+                instance = null;
+                GameObject.Find("Directions(Clone)").Destroy();
+                GameObject.Find("direction waypoint  entity").Destroy();
+                GameObject[] g = GameObject.FindGameObjectsWithTag("waypointc");
+                foreach (GameObject gg in g)
+                {
+                    Destroy(gg);
+                }
+                DrawDirectionBySchedule(type);
+            }
         }
     }
 
@@ -212,6 +220,26 @@ public class CanvasManager : MonoBehaviour
             }
         }
         scheduleOrNot = true;
-        DrawDirectionBySchedule("Walking");
+        DrawDirectionBySchedule("Schedule");
+    }
+
+    public void route1()
+    {
+        if (instance)
+        {
+            DirectionsFactory theDirect = instance.GetComponent<DirectionsFactory>();
+            theDirect.routeNum = 0;
+            theDirect.Refresh();
+        }
+    }
+
+    public void route2()
+    {
+        if (instance)
+        {
+            DirectionsFactory theDirect = instance.GetComponent<DirectionsFactory>();
+            theDirect.routeNum = 1;
+            theDirect.Refresh();
+        }
     }
 }

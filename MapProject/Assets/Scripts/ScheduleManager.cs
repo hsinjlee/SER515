@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -35,11 +36,12 @@ public class ScheduleManager : MonoBehaviour
             Debug.Log("Scraper Not Found.");
         }
 
-        // classSchedule = new List<string> { "Memorial Union", "Hayden Library", "ASU SDFC Field", "ASU ISTB 4" };
+        
         if (!updated)
         {
             GenerateSchedule();
         }
+        //classSchedule = new List<string> { "Memorial Union", "Hayden Library", "ASU SDFC Field", "ASU ISTB 4" };
         foreach (string s in classSchedule)
         {
             Debug.Log(s);
@@ -75,7 +77,6 @@ public class ScheduleManager : MonoBehaviour
         List<string> dailyClass = weekSchedule[key];
         foreach (string course in dailyClass)
         {
-            Debug.Log(course);
             HashSet<string> details = classDetails[course];
 
             string location = null;
@@ -141,6 +142,7 @@ public class ScheduleManager : MonoBehaviour
         s = s.Replace("LNTAHL", "LANTANA HALL");
         s = s.Replace("CNTR", "ACADEMIC CENTER");
         s = s.Replace("SDFCP", "SUN DEVIL FITNESS COMPLEX");
+        s = Regex.Replace(s, @"[\d-]", string.Empty);
         return s;
     }
 

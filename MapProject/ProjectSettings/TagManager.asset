@@ -10,6 +10,8 @@ TagManager:
   - user
   - ManipulationSystem
   - Scraper
+  - waypointc
+  - Route2
   layers:
   - Default
   - TransparentFX
