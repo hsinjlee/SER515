@@ -171,6 +171,21 @@ public class CanvasManager : MonoBehaviour
         DrawDirection("Search");   
     }
 
+    public void GetWalkingTime()
+    {
+        int route = GameObject.Find("Directions(Clone)").GetComponent<DirectionsFactory>().length;
+        float minute = route / 3.0f; ;
+        Text time = GameObject.Find("Canvas/Time").GetComponent<Text>();
+        time.text = "Time:" + minute.ToString() + "minute";
+    }
+    public void GetDrivingTime()
+    {
+        int route = GameObject.Find("Directions(Clone)").GetComponent<DirectionsFactory>().length;
+        float minute = route / 10.0f; ;
+        Text time = GameObject.Find("Canvas/Time").GetComponent<Text>();
+        time.text = "Time:" + minute.ToString() + "minute";
+    }
+
     public void WalkingButton()
     {
         if (scheduleOrNot)
@@ -181,6 +196,7 @@ public class CanvasManager : MonoBehaviour
         {
             DrawDirection("Walking");
         }
+        Invoke("GetWalkingTime", 1);
     }
 
     public void DrivingButton()
@@ -193,6 +209,7 @@ public class CanvasManager : MonoBehaviour
         {
             DrawDirection("Driving");
         }
+        Invoke("GetDrivingTime", 1);
     }
 
     public void ShowSchedule() {

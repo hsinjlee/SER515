@@ -26,8 +26,9 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		public Transform[] _waypoints;
 		private List<Vector3> _cachedWaypoints;
 		public List<Vector3> _waypointsOnMap;
+        public int length;
 
-		[SerializeField]
+        [SerializeField]
 		[Range(1, 10)]
 		private float UpdateFrequency = 2;
 
@@ -166,8 +167,8 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 
 		GameObject CreateGameObject(MeshData data)
 		{
-			
-			if (_directionsGO != null)
+            length = data.Vertices.Count;
+            if (_directionsGO != null)
 			{
 				_directionsGO.Destroy();
 			}
